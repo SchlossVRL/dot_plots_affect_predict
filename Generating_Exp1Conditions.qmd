@@ -1,0 +1,99 @@
+---
+title: "Generating_Exp1Conditions"
+format: html
+editor: visual
+---
+
+```{r}
+img_dir <- "DotPlots"
+output_js <- "exp_conditions.js"
+emotions <- c("Angry", "Disgust", "Fearful", "Happy", "Sad")
+
+# -----------------------------
+# 1. READ FILENAMES
+# -----------------------------
+files <- list.files(img_dir, full.names = FALSE)
+image_paths <- files
+
+# -----------------------------
+# 2. PARSE FILENAMES
+# -----------------------------
+parse_info <- function(filename) {
+  parts <- strsplit(filename, "_")[[1]]
+  list(
+    participant = as.integer(parts[1]),
+    emotion = parts[2]
+  )
+}
+
+parsed <- lapply(files, parse_info)
+participants <- sort(unique(vapply(parsed, function(x) x$participant, integer(1))))
+
+# -----------------------------
+# 3. BUILD JS FOR image_paths
+# -----------------------------
+image_paths_js <- c("var image_paths = [")
+for (f in image_paths) {
+  image_paths_js <- c(image_paths_js, sprintf('  "%s",', f))
+}
+# remove trailing comma
+image_paths_js[length(image_paths_js)] <- sub(",$", "", image_paths_js[length(image_paths_js)])
+image_paths_js <- c(image_paths_js, "];", "")
+
+# -----------------------------
+# 4. BUILD JS FOR p_set
+# -----------------------------
+p_set_js <- c("var p_set = [")
+
+for (i in seq_along(participants)) {
+  
+  p <- participants[i]
+  zero_index <- i - 1
+  
+  p_set_js <- c(p_set_js, "  {")
+  p_set_js <- c(p_set_js, sprintf("    %s: {", zero_index))
+  
+  # Build emotion blocks
+  for (emo in emotions) {
+    emo_files <- files[
+      sapply(parsed, function(x) x$participant == p && x$emotion == emo)
+    ]
+    
+    # Format array of filenames
+    if (length(emo_files) > 0) {
+      file_lines <- paste0('      "', emo_files, '"', collapse = ",\n")
+    } else {
+      file_lines <- ""  # empty array
+    }
+    
+    p_set_js <- c(
+      p_set_js,
+      sprintf("      %s: [", emo),
+      file_lines,
+      "      ],"
+    )
+  }
+  
+  # Remove trailing comma after last emotion
+  p_set_js[length(p_set_js)] <- sub(",$", "", p_set_js[length(p_set_js)])
+  
+  p_set_js <- c(p_set_js, "    }")
+  p_set_js <- c(p_set_js, "  },")
+}
+
+# Remove trailing comma after last participant
+p_set_js[length(p_set_js)] <- sub(",$", "", p_set_js[length(p_set_js)])
+
+p_set_js <- c(p_set_js, "];")
+
+# -----------------------------
+# 5. WRITE JS FILE
+# -----------------------------
+js_output <- c(image_paths_js, p_set_js)
+writeLines(js_output, output_js)
+
+cat("Generated:", output_js, "\n")
+```
+
+```         
+```
