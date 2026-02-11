@@ -5,7 +5,7 @@ editor: visual
 ---
 
 ```{r}
-img_dir <- "DotPlots"
+img_dir <- "images"
 output_js <- "exp_conditions.js"
 emotions <- c("Angry", "Disgust", "Fearful", "Happy", "Sad")
 
@@ -13,7 +13,7 @@ emotions <- c("Angry", "Disgust", "Fearful", "Happy", "Sad")
 # 1. READ FILENAMES
 # -----------------------------
 files <- list.files(img_dir, full.names = FALSE)
-image_paths <- files
+image_paths <- file.path(img_dir, files)
 
 # -----------------------------
 # 2. PARSE FILENAMES
@@ -54,25 +54,26 @@ for (i in seq_along(participants)) {
   p_set_js <- c(p_set_js, sprintf("    %s: {", zero_index))
   
   # Build emotion blocks
-  for (emo in emotions) {
-    emo_files <- files[
-      sapply(parsed, function(x) x$participant == p && x$emotion == emo)
-    ]
-    
-    # Format array of filenames
-    if (length(emo_files) > 0) {
-      file_lines <- paste0('      "', emo_files, '"', collapse = ",\n")
-    } else {
-      file_lines <- ""  # empty array
-    }
-    
-    p_set_js <- c(
-      p_set_js,
-      sprintf("      %s: [", emo),
-      file_lines,
-      "      ],"
-    )
+for (emo in emotions) {
+
+  emo_files <- file.path(
+    img_dir,
+    files[sapply(parsed, function(x) x$participant == p && x$emotion == emo)]
+  )
+
+  if (length(emo_files) > 0) {
+    file_lines <- paste0('      "', emo_files, '"', collapse = ",\n")
+  } else {
+    file_lines <- ""
   }
+
+  p_set_js <- c(
+    p_set_js,
+    sprintf("      %s: [", emo),
+    file_lines,
+    "      ],"
+  )
+}
   
   # Remove trailing comma after last emotion
   p_set_js[length(p_set_js)] <- sub(",$", "", p_set_js[length(p_set_js)])

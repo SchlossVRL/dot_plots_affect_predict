@@ -61,8 +61,8 @@
             const subject_id = jsPsych.randomization.randomID(10);
             const filename = `${subject_id}.csv`;
 
-            // Participant ID for image selection (0–79)
-            const participant_id = sona_id ? parseInt(sona_id) : jsPsych.randomization.randomInt(0,0);
+            // Participant ID for image selection (0–39)
+            const participant_id = sona_id ? parseInt(sona_id) : jsPsych.randomization.randomInt(0,39);
 
             // Assign condition
 
@@ -130,11 +130,15 @@
             }
             timeline.push(initial_screen);
 
-            // preload images
+            const participant_obj = p_set[participant_id][participant_id];
+
+            const participant_images = Object.values(participant_obj).flat();
+
             let preload_trial = {
-                type: jsPsychPreload,
-                images: image_paths
-            }
+            type: jsPsychPreload,
+            images: participant_images
+            };
+
             timeline.push(preload_trial);
 
             // fullscreen mode
@@ -693,13 +697,14 @@
             timeline.push(colorvision);
             
 
-            const save_data = {
+                const save_data = {
                 type: jsPsychPipe,
                 action: "save",
-                experiment_id: "Rn56BHzIriFm",
+                experiment_id: "s9lNpAZEJtjv",
                 filename: filename,
-                data_string: () => jsPsych.data.get().csv()
-            };
+                data_string: ()=>jsPsych.data.get().csv()
+                };
+                
             timeline.push(save_data);
 
             //spot for debrief
