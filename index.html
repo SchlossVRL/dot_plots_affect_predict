@@ -538,7 +538,7 @@
                             <p style="font-size:50px; font-weight:bold;"
                             >${this_concept}</p>
                             <div style="width:300px; margin: auto;">
-                                <img src="${this_image}" style= "width:300px"alt="img">
+                                <img src="${this_image}" width="300" height="200" style="object-fit:contain;">
                             </div>
                         </div>`,
                         labels: ['Not at all', 'Very much'],
@@ -564,6 +564,17 @@
 
                     };
                     trial_block.push(rating_trial);
+
+
+                    const iti = {
+                        type: jsPsychHtmlKeyboardResponse,
+                        stimulus: `<div style="font-size:48px">+</div>`,
+                        choices: "NO_KEYS",
+                        trial_duration: 500
+                    };
+
+                    trial_block.push(iti);
+
 
 
 
