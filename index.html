@@ -66,8 +66,8 @@
 
             // Assign condition
 
-            //const condition_num = await jsPsychPipe.getCondition("Rn56BHzIriFm");
-            const condition_num = 0;
+            const condition_num = await jsPsychPipe.getCondition("s9lNpAZEJtjv");
+           // const condition_num = 0;
 
             //Limit conditions run
 
@@ -136,7 +136,19 @@
 
             let preload_trial = {
             type: jsPsychPreload,
-            images: participant_images
+            images: [...participant_images,
+                "images/ishihara/ishihara-0.png",
+                "images/ishihara/ishihara-1.png",
+                "images/ishihara/ishihara-2.png",
+                "images/ishihara/ishihara-3.png",
+                "images/ishihara/ishihara-4.png",
+                "images/ishihara/ishihara-5.png",
+                "images/ishihara/ishihara-6.png",
+                "images/ishihara/ishihara-7.png",
+                "images/ishihara/ishihara-8.png",
+                "images/ishihara/ishihara-9.png",
+                "images/ishihara/ishihara-10.png"
+            ]
             };
 
             timeline.push(preload_trial);
