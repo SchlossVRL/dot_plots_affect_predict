@@ -167,10 +167,10 @@
             concept_list = jsPsych.randomization.shuffle(concept_list);
 
             // shuffle images within each concept (emotion)
-            let shuffled_concept_images = {};
+            /*let shuffled_concept_images = {};
             concept_list.forEach(concept => {
                 shuffled_concept_images[concept] = jsPsych.randomization.shuffle(concept_object[concept]);
-            });
+            });*/
 
 
             // log statements for debugging
@@ -301,14 +301,14 @@
 
             //This creates the anchoring grid
             // participantImages = { Angry: [...], Happy: [...], ... }
-            const participantImages = p_set[participant_id][participant_id];
+            //const participantImages = p_set[participant_id][participant_id];
 
-            const emotions = Object.keys(participantImages);
+            const emotions = Object.keys(concept_object);
             const finalImages = [];
 
             emotions.forEach(emotion => {
 
-                const files = participantImages[emotion];
+                const files = concept_object[emotion];
 
                 // Separate hi_hi and lo_lo
                 const hi_hi = files.filter(f => f.includes("_hi_hi_"));
