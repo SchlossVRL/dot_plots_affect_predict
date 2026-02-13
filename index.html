@@ -28,6 +28,71 @@
 
 </head>
 
+<style>
+    /* Remove default slider styling */
+    .jspsych-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        outline: none;
+        border: none;
+    }
+
+    .jspsych-slider:focus {
+        outline: none;
+    }
+
+    .jspsych-slider::-webkit-slider-runnable-track {
+        border: none;
+    }
+
+    .jspsych-slider::-moz-range-track {
+        border: none;
+    }
+
+    /* Track */
+    .jspsych-slider::-webkit-slider-runnable-track {
+        height: 6px;
+        background: black;
+        border-radius: 2px;
+    }
+
+    .jspsych-slider::-moz-range-track {
+        height: 6px;
+        background: black;
+        border-radius: 2px;
+    }
+
+    .jspsych-slider {
+        position: relative;
+        top: -2px;
+        /* adjust this value */
+    }
+
+    /* Thumb */
+    .jspsych-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        background: black;
+        margin-top: -5px;
+    }
+
+    .jspsych-slider::-moz-range-thumb {
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        background: black;
+        border: none;
+    }
+
+    .jspsych-slider::-webkit-slider-thumb {
+        margin-top: -1px;
+        /* adjust slightly */
+    }
+</style>
+
 <body>
 
 
