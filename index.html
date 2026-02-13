@@ -150,13 +150,20 @@
             //concept_list = p_set[assigned_condition];
             //concept_list = jsPsych.randomization.shuffle(concept_list);
 
+            // get just the images for a specific participant
+            // = p_set[participant_id][participant_id];
+
+
             //ALL conditions
             const condition_object = (p_set[condition_num]);
             const condition_key = Object.keys(condition_object)[0];
             const concept_object = condition_object[condition_key];
 
+            //get just participant images for preload
+            const participant_images = Object.values(concept_object).flat();
+
             // shuffle order of concepts (emotions)
-            let concept_list = Object.keys(concept_object);
+            let concept_list = Object.keys(concept_object); //used to be concept_object
             concept_list = jsPsych.randomization.shuffle(concept_list);
 
             // shuffle images within each concept (emotion)
@@ -194,10 +201,6 @@
                 choices: ['Begin Experiment']
             }
             timeline.push(initial_screen);
-
-            const participant_obj = p_set[participant_id][participant_id];
-
-            const participant_images = Object.values(participant_obj).flat();
 
             let preload_trial = {
                 type: jsPsychPreload,
@@ -579,7 +582,7 @@
 
                 let concept_images =
                     jsPsych.randomization.shuffle(
-                        concept_object[this_concept]
+                        concept_object[this_concept] ///used to be concept_object
                     );
 
                 console.log(this_concept, concept_images);
