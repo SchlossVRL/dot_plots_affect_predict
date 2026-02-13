@@ -243,7 +243,7 @@
             })
 
             // consent form
-     /*       var consentSign = {
+            var consentSign = {
                 type: jsPsychSurveyMultiSelect,
                 questions: [
                     {
@@ -312,7 +312,7 @@
                 randomize_question_order: false
             }
             timeline.push(age_lang_demo);
-*/
+
 
             //This creates the anchoring grid
             // participantImages = { Angry: [...], Happy: [...], ... }
@@ -380,7 +380,7 @@
                                 to rate how much you associate each chart with each concept on a scale from 'not at all' to 'very much' like the
                                 one below. <br>
 
-                        <div style="text-align: left; width: 1200px;">
+                        <div style="text-align: left; width: 1300px;">
                             <p style="font-size:18px; line-height:20px; text-align:center; font-weight:bold">
                                 ${concept_list[0]}, ${concept_list[1]}, ${concept_list[2]}, ${concept_list[3]}, ${concept_list[4]}
                             </p>
@@ -449,9 +449,9 @@
             //instructions on how the slider may be moved
             var slider_instructions = {
                 type: jsPsychHtmlButtonResponse,
-                stimulus: `<div style="width:800px;"><p style="text-align:left">To move the slider, click and drag your cursor to the location of the scale where you would like to make your rating and then let go. When you let go of the slider, your response will be recorded and the next trial will begin. <br>
-                    We are interested in your initial impressions of each chart for a given concept, so please go with your first intuition. <br>
-                    Before you begin the experiment, there will be four training trials for you to practice using the slider. <br>
+                stimulus: `<div style="width:1300px;"><p style="text-align:left">To move the slider, click and drag your cursor to the location of the scale where you would like to make your rating and then let go. When you let go of the slider, your response will be recorded and the next trial will begin. <br>
+                    We are interested in your initial impressions of each chart for a given concept, so please go with your first intuition. 
+                    Before you begin the experiment, there will be four training trials for you to practice using the slider. 
                      When you are ready to start the training trials, please click "Continue".</p><br></div>`,
                 choices: ['Continue']
             }
@@ -557,7 +557,7 @@
                         }
                     }
                 };
-         //       timeline.push(comp1_loop);
+                timeline.push(comp1_loop);
             }
 
             var practice_complete = {
