@@ -62,12 +62,12 @@
             const filename = `${subject_id}.csv`;
 
             // Participant ID for image selection (0–39)
-            const participant_id = sona_id ? parseInt(sona_id) : jsPsych.randomization.randomInt(0,39);
+            const participant_id = sona_id ? parseInt(sona_id) : jsPsych.randomization.randomInt(0, 39);
 
             // Assign condition
 
             const condition_num = await jsPsychPipe.getCondition("s9lNpAZEJtjv");
-           // const condition_num = 0;
+            // const condition_num = 0;
 
             //Limit conditions run
 
@@ -135,20 +135,20 @@
             const participant_images = Object.values(participant_obj).flat();
 
             let preload_trial = {
-            type: jsPsychPreload,
-            images: [...participant_images,
-                "images/ishihara/ishihara-0.png",
-                "images/ishihara/ishihara-1.png",
-                "images/ishihara/ishihara-2.png",
-                "images/ishihara/ishihara-3.png",
-                "images/ishihara/ishihara-4.png",
-                "images/ishihara/ishihara-5.png",
-                "images/ishihara/ishihara-6.png",
-                "images/ishihara/ishihara-7.png",
-                "images/ishihara/ishihara-8.png",
-                "images/ishihara/ishihara-9.png",
-                "images/ishihara/ishihara-10.png"
-            ]
+                type: jsPsychPreload,
+                images: [...participant_images,
+                    "images/ishihara/ishihara-0.png",
+                    "images/ishihara/ishihara-1.png",
+                    "images/ishihara/ishihara-2.png",
+                    "images/ishihara/ishihara-3.png",
+                    "images/ishihara/ishihara-4.png",
+                    "images/ishihara/ishihara-5.png",
+                    "images/ishihara/ishihara-6.png",
+                    "images/ishihara/ishihara-7.png",
+                    "images/ishihara/ishihara-8.png",
+                    "images/ishihara/ishihara-9.png",
+                    "images/ishihara/ishihara-10.png"
+                ]
             };
 
             timeline.push(preload_trial);
@@ -229,7 +229,7 @@
                 randomize_question_order: false
             }
             timeline.push(age_lang_demo);
-     
+
 
             //This creates the anchoring grid
             // participantImages = { Angry: [...], Happy: [...], ... }
@@ -333,7 +333,7 @@
                 </div>
                     `,
 
-                        prompt: `
+                prompt: `
                             <br>
                             <div style='text-align:left; font-size:18px; line-height:25px; width: 1300px;'>
                             Now, please look at the list of concepts and charts. For each concept, think about the chart you associate 'very
@@ -495,7 +495,7 @@
             };
             timeline.push(practice_complete);
 
-        
+
 
             for (j = 0; j < concept_list.length; j++) {
                 let this_concept = concept_list[j];
@@ -519,7 +519,9 @@
 
                 console.log(this_concept, concept_images);
 
-                let trial_block = [];
+                //let trial_block = [];
+
+                let rating_trials = [];
 
                 /*image_paths = jsPsych.randomization.shuffle(image_paths);
                 for (i = 0; i < Object.keys(image_paths).length; i++) {
@@ -563,25 +565,41 @@
                         }
 
                     };
-                    trial_block.push(rating_trial);
+                    rating_trials.push(rating_trial);
 
 
-                    const iti = {
+                }
+
+                rating_trials = jsPsych.randomization.shuffle(rating_trials);
+
+
+                let trial_block = [];
+
+                for (let i = 0; i < rating_trials.length; i++) {
+                    trial_block.push(rating_trials[i]);
+
+                    trial_block.push({
                         type: jsPsychHtmlKeyboardResponse,
                         stimulus: `<div style="font-size:48px">+</div>`,
                         choices: "NO_KEYS",
                         trial_duration: 500
-                    };
-
-                    trial_block.push(iti);
-
-
-
-
-
+                    });
                 }
-                trial_block = jsPsych.randomization.shuffle(trial_block);
+
                 timeline = _.concat(timeline, trial_block);
+
+
+
+                /*const iti = {
+                    type: jsPsychHtmlKeyboardResponse,
+                    stimulus: `<div style="font-size:48px">+</div>`,
+                    choices: "NO_KEYS",
+                    trial_duration: 500
+                };
+
+                trial_block.push(iti);*/
+                //trial_block = jsPsych.randomization.shuffle(trial_block);
+                //timeline = _.concat(timeline, trial_block);
 
 
                 if (j == concept_list.length - 1) {
@@ -718,16 +736,16 @@
                 randomize_question_order: false
             };
             timeline.push(colorvision);
-            
 
-                const save_data = {
+
+            const save_data = {
                 type: jsPsychPipe,
                 action: "save",
                 experiment_id: "s9lNpAZEJtjv",
                 filename: filename,
-                data_string: ()=>jsPsych.data.get().csv()
-                };
-                
+                data_string: () => jsPsych.data.get().csv()
+            };
+
             timeline.push(save_data);
 
             //spot for debrief
