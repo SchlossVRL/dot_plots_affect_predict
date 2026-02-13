@@ -591,9 +591,9 @@
 
                 console.log(this_concept, concept_images);
 
-                //let trial_block = [];
+                let trial_block = [];
 
-                let rating_trials = [];
+                //let rating_trials = [];
 
                 /*image_paths = jsPsych.randomization.shuffle(image_paths);
                 for (i = 0; i < Object.keys(image_paths).length; i++) {
@@ -637,26 +637,13 @@
                         }
 
                     };
-                    rating_trials.push(rating_trial);
+                    trial_block.push(rating_trial);
 
 
                 }
 
-                rating_trials = jsPsych.randomization.shuffle(rating_trials);
+                trial_block = jsPsych.randomization.shuffle(trial_block);
 
-
-                let trial_block = [];
-
-                for (let i = 0; i < rating_trials.length; i++) {
-                    trial_block.push(rating_trials[i]);
-
-                    trial_block.push({
-                        type: jsPsychHtmlKeyboardResponse,
-                        stimulus: `<div style="font-size:48px">+</div>`,
-                        choices: "NO_KEYS",
-                        trial_duration: 500
-                    });
-                }
 
                 timeline = _.concat(timeline, trial_block);
 
