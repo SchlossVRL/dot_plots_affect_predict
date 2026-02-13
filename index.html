@@ -243,7 +243,7 @@
             })
 
             // consent form
-            var consentSign = {
+     /*       var consentSign = {
                 type: jsPsychSurveyMultiSelect,
                 questions: [
                     {
@@ -312,7 +312,7 @@
                 randomize_question_order: false
             }
             timeline.push(age_lang_demo);
-
+*/
 
             //This creates the anchoring grid
             // participantImages = { Angry: [...], Happy: [...], ... }
@@ -407,11 +407,11 @@
                     `,
 
                 prompt: `
-                            <div style='text-align:left; font-size:20px; line-height:25px; width: 1300px;'>
+                            <div style='text-align:left; font-size:18px; line-height:25px; width: 1300px;'>
                             Now, please look at the list of concepts and charts. <br> For each concept, think about the chart you associate 'very
                             much' with the concept.
                             When you see that chart during the experiment, please rate it near the 'very much' endpoint of the
-                            scale. Now, please think about which map you associate 'not at all' \
+                            scale. Now, please think about which chart you associate 'not at all' \
                             with each concept. When you see that chart during the experiment, please rate it near the 'not at all' endpoint
                             of the scale.<br>
                             Please use the full range of the scale. That is, if a chart is somewhat associated with the concept, you would
@@ -450,7 +450,7 @@
             var slider_instructions = {
                 type: jsPsychHtmlButtonResponse,
                 stimulus: `<div style="width:800px;"><p style="text-align:left">To move the slider, click and drag your cursor to the location of the scale where you would like to make your rating and then let go. When you let go of the slider, your response will be recorded and the next trial will begin. <br>
-                    We are interested in your initial impressions of each concept for a given scale, so please go with your first intuition. <br>
+                    We are interested in your initial impressions of each chart for a given concept, so please go with your first intuition. <br>
                     Before you begin the experiment, there will be four training trials for you to practice using the slider. <br>
                      When you are ready to start the training trials, please click "Continue".</p><br></div>`,
                 choices: ['Continue']
@@ -557,7 +557,7 @@
                         }
                     }
                 };
-                timeline.push(comp1_loop);
+         //       timeline.push(comp1_loop);
             }
 
             var practice_complete = {
@@ -611,8 +611,8 @@
                         stimulus: `<div style="width:500px;">
                             <p style="font-size:50px; font-weight:bold;"
                             >${this_concept}</p>
-                            <div style="width:300px; margin: auto;">
-                                <img src="${this_image}" width="300" height="200" style="object-fit:contain;">
+                            <div style="width:480px; margin: auto;">
+                                <img src="${this_image}" width="480" height="420" style="object-fit:contain;">
                             </div>
                         </div>`,
                         labels: ['Not at all', 'Very much'],
@@ -734,7 +734,11 @@
                         type: jsPsychSurveyHtmlForm,
                         preamble: '<div><p style="font-size:25px">Carefully type what number you see using digits (e.g., if you see 100, type "100" not "one hundred").<br>If you do not see a number, type "None".\
                             <br></p></div><div ><img src="images/ishihara/ishihara-' + whichPlate + '.png" alt="Ishihara Plate" style="height:500px"></div>',
-                        html: '<div><p><input name="number" type="text" /></div>',
+                        html: '<div><p><input name="number" type="text" autofocus /></p></div>',
+                        on_load: function () {
+                            const field = document.querySelector('input[name="number"]');
+                            if (field) field.focus();
+                        },
                         // trial_duration: 5000,
                         post_trial_gap: 250,
                         data: { ishihara_plate: whichPlate, correct_response: answer }
