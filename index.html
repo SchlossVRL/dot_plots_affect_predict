@@ -361,6 +361,11 @@
                             .jspsych-html-slider-response-container {
                                 margin-top: 2px !important;  
                             }
+
+                            .jspsych-html-slider-response-response .jspsych-slider-label {
+                                font-size: 16px !important;  
+                            }
+
                             .jspsych-html-slider-response-response .jspsych-slider-label {
                                 font-size: 5px !important;
                             }
@@ -402,7 +407,6 @@
                     `,
 
                 prompt: `
-                            <br>
                             <div style='text-align:left; font-size:18px; line-height:25px; width: 1300px;'>
                             Now, please look at the list of concepts and charts. For each concept, think about the chart you associate 'very
                             much' with the concept.<br> \
@@ -434,8 +438,11 @@
                 data: {
                     practiceTrial: true,
                 },
-                slider_width: 500
-
+                slider_width: 500,
+                on_start: function (trial) {
+                    // add a unique class to this trial container
+                    trial.css_classes = 'instructions-slider';
+                }
 
             }
 
