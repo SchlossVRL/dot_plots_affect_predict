@@ -357,23 +357,8 @@
                 // type: jsPsychHtmlButtonResponse,
                 type: jsPsychHtmlSliderResponse,
                 stimulus: `
-                        <style>
-                            .jspsych-html-slider-response-container {
-                                margin-top: 2px !important;  
-                            }
-
-                            .jspsych-html-slider-response-response .jspsych-slider-label {
-                                font-size: 16px !important;  
-                            }
-
-                            .jspsych-html-slider-response-response .jspsych-slider-label {
-                                font-size: 5px !important;
-                            }
-
-                        </style>
-
                         <div>
-                            <div style='text-align:left; font-size:18px; line-height:25px; width: 1300px;'>
+                            <div style='text-align:left; font-size:20px; line-height:25px; width: 1300px;'>
                                 During this experiment you will be asked to rate how much you associate charts with\
                                 different concepts. Below, you can see some examples of the charts you will be asked to rate. Above the charts
                                 is the list of concepts. You will be asked\
@@ -407,13 +392,14 @@
                     `,
 
                 prompt: `
-                            <div style='text-align:left; font-size:18px; line-height:25px; width: 1300px;'>
-                            Now, please look at the list of concepts and charts. For each concept, think about the chart you associate 'very
+                            <div style='text-align:left; font-size:20px; line-height:25px; width: 1300px;'>
+                            Now, please look at the list of concepts and charts. <br> For each concept, think about the chart you associate 'very
                             much' with the concept.
                             When you see that chart during the experiment, please rate it near the 'very much' endpoint of the
-                            scale. Now, please think about which map you associate 'not at all' \
+                            scale. <br><br> 
+                            Now, please think about which map you associate 'not at all' \
                             with each concept. When you see that chart during the experiment, please rate it near the 'not at all' endpoint
-                            of the scale.<br>
+                            of the scale.<br><br>
                             Please use the full range of the scale. That is, if a chart is somewhat associated with the concept, you would
                             click partway between the middle point and right side of the scale.\
                             You will be asked to rate each chart for a given concept before moving on to the next concept.<br>Press the
@@ -435,14 +421,11 @@
                 max: 200,
                 response_ends_trial: false,
                 include_button: true,
+                slider_label_style: 'font-size:10px;',
                 data: {
                     practiceTrial: true,
                 },
-                slider_width: 500,
-                on_start: function (trial) {
-                    // add a unique class to this trial container
-                    trial.css_classes = 'instructions-slider';
-                }
+                slider_width: 500
 
             }
 
