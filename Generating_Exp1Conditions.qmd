@@ -6,7 +6,7 @@ editor: visual
 
 ```{r}
 img_dir <- "images"
-output_js <- "exp_conditions.js"
+output_js <- "bars_exp_conditions.js"
 emotions <- c("Angry", "Disgust", "Fearful", "Happy", "Sad")
 
 # -----------------------------
@@ -19,14 +19,26 @@ image_paths <- file.path(img_dir, files)
 # 2. PARSE FILENAMES
 # -----------------------------
 parse_info <- function(filename) {
-  parts <- strsplit(filename, "_")[[1]]
+
+  # Extract first number in filename
+  participant <- as.integer(regmatches(filename, regexpr("^[0-9]+", filename)))
+
+  # Extract emotion by matching known list case-insensitively
+  emotion <- emotions[sapply(emotions, function(e)
+    grepl(paste0("^", e, "$"), strsplit(filename, "_")[[1]][2], ignore.case = TRUE)
+  )]
+
+  if (length(emotion) == 0) emotion <- NA
+
   list(
-    participant = as.integer(parts[1]),
-    emotion = parts[2]
+    participant = participant,
+    emotion = emotion
   )
 }
 
+
 parsed <- lapply(files, parse_info)
+
 participants <- sort(unique(vapply(parsed, function(x) x$participant, integer(1))))
 
 # -----------------------------
@@ -94,6 +106,38 @@ js_output <- c(image_paths_js, p_set_js)
 writeLines(js_output, output_js)
 
 cat("Generated:", output_js, "\n")
+```
+
+```{r}
+img_dir <- "images"
+output_js <- "bars_exp_conditions.js"
+emotions <- c("Angry", "Disgust", "Fearful", "Happy", "Sad")
+```
+
+```{r}
+# -----------------------------
+# 1. READ FILENAMES
+# -----------------------------
+files <- list.files(img_dir, full.names = FALSE)
+image_paths <- file.path(img_dir, files)
+```
+
+```{r}
+# -----------------------------
+# 2. PARSE FILENAMES
+# -----------------------------
+parse_info <- function(filename) {
+  parts <- strsplit(filename, "_")[[1]]
+  list(
+    participant = as.integer(parts[1]),
+    emotion = parts[2]
+  )
+}
+
+parsed <- lapply(files, parse_info)
+
+bad <- vapply(parsed, function(x) any(is.na(unlist(x))), logical(1))
+files[bad]
 ```
 
 ```         
