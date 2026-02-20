@@ -19,7 +19,7 @@
     <script src="jsPsych/plugin-fullscreen.js"></script>
     <script src="jsPsych/plugin-preload.js"></script>
     <!-- <script src="imagePaths.js"></script> -->
-    <script src="bars_exp_conditions.js"></script>
+    <script src="exp_conditions.js"></script>
     <link href="jsPsych/jspsych.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script> -->
@@ -142,7 +142,7 @@
             const filename = `${subject_id}.csv`;
 
             // Participant ID for image selection (0–39)
-            const participant_id = sona_id ? parseInt(sona_id) : jsPsych.randomization.randomInt(0, 0);
+            const participant_id = sona_id ? parseInt(sona_id) : jsPsych.randomization.randomInt(0, 39);
 
             // Assign condition
 
@@ -364,7 +364,7 @@
             // Shuffle final 10 images
             const shuffledFinalImages = jsPsych.randomization.shuffle(finalImages);
 
-            console.log(shuffledFinalImages.slice(0, 10));
+
 
 
             // overview instructions
